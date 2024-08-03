@@ -10,7 +10,7 @@
 
 2) Склонировать репозиторий и перейти в него в командной строке:
 ```
-git@github.com:waitmon/simbirsoft_9892912
+git clone git@github.com:waitmon/simbirsoft_9892912
 ```
 ```
 cd simbirsoft_9892912
@@ -20,7 +20,7 @@ cd simbirsoft_9892912
 ## Запуск тестов
 1) Установить зависимости: 
  ```
- pip3 install -r requirements
+ pip3 install -r requirements.txt
  ```
 2) В терминале перейти в директорию со скачанным selenium grid и запустить в режиме standalone следующей командной:
 
