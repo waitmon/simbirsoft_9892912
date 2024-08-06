@@ -2,11 +2,13 @@ import allure
 import pytest
 from allure import severity, severity_level
 
-from locators.locators import AccountPageLocators
-from pages.login_page import LoginPage
-from pages.account_page import AccountPage
-from pages.transactions_page import TransactionsPage
 from config import BASE_DIR
+from locators.locators import AccountPageLocators
+from pages.account_page import AccountPage
+from pages.login_page import LoginPage
+from pages.transactions_page import TransactionsPage
+from utilities.fibonacci import FibonacciNumber
+from utilities.generate_csv import GenerateCsvReport
 
 
 @allure.feature('Bank operations features: deposit, withdrawal & transactions extraction')
@@ -18,6 +20,8 @@ class TestBankOperations:
         login = LoginPage(browser)
         account = AccountPage(browser)
         transactions = TransactionsPage(browser)
+        fib = FibonacciNumber()
+        csv = GenerateCsvReport(browser)
 
         login.open()
         login.login_as_customer()
@@ -25,8 +29,8 @@ class TestBankOperations:
         login.click_submit()
 
         account.click_deposit_button()
-        current_day = account.current_day
-        fibonacci_num = account.get_fibonacci(current_day)
+        current_day = fib.current_day
+        fibonacci_num = fib.get_fibonacci(current_day)
         account.input_amount(fibonacci_num)
         account.click_submit()
         account.assert_element_text(AccountPageLocators.OPERATION_RESULT_TEXT, 'Deposit Successful')
@@ -43,7 +47,7 @@ class TestBankOperations:
         transaction_lst = transactions.get_transaction_list()
         assert fibonacci_num in transaction_lst, 'Transactions not found'
 
-        file_name = transactions.generate_csv_report()
+        file_name = csv.generate_csv_report()
 
         allure.attach.file(
             source=BASE_DIR,
