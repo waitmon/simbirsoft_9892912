@@ -12,6 +12,6 @@ class LoginPage(BasePage):
         self.find_to_be_clickable(*LoginPageLocators.CUSTOMER_LOGIN).click()
 
     @allure.step('Select username')
-    def select_user(self, username):
+    def select_user(self, username: str):
         select = Select(self.find_to_be_clickable(*LoginPageLocators.USER_SELECT))
         select.select_by_visible_text(username)

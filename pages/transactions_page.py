@@ -1,5 +1,6 @@
 import csv
 import datetime
+from typing import List, Union
 
 import allure
 
@@ -16,7 +17,7 @@ class TransactionsPage(BasePage):
         self.find_to_be_clickable(*AccountPageLocators.TRANSACTIONS_BUTTON).click()
 
     @allure.step('Get transaction list')
-    def get_transaction_list(self):
+    def get_transaction_list(self) -> List[Union[int, str]]:
         transactions_table_rows = self.find_all_elements(*TransactionPageLocators.ROWS)
         transactions = []
         for element in transactions_table_rows:
@@ -28,7 +29,7 @@ class TransactionsPage(BasePage):
         return transactions
 
     @allure.step('Generate csv report')
-    def generate_csv_report(self):
+    def generate_csv_report(self) -> str:
         transactions = self.find_all_elements(*TransactionPageLocators.ROWS)
         file_name = 'csv_report.csv'
 

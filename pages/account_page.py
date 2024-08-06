@@ -11,11 +11,11 @@ from pages.base_page import BasePage
 class AccountPage(BasePage):
 
     @property
-    def current_day(self):
+    def current_day(self) -> int:
         return int(datetime.today().strftime('%d'))
 
     @allure.step('Generate number from fibonacci sequence')
-    def get_fibonacci(self, current_day):
+    def get_fibonacci(self, current_day: int) -> int:
         if current_day == 1:
             return 0
         elif current_day in [2, 3]:
@@ -28,8 +28,8 @@ class AccountPage(BasePage):
         self.wait.until(EC.text_to_be_present_in_element(LoginPageLocators.SUBMIT_BUTTON, text_='Deposit'))
 
     @allure.step('Input transaction amount')
-    def input_amount(self, amount):
-        self.find_to_be_clickable(*AccountPageLocators.AMOUNT_INPUT).send_keys(amount)
+    def input_amount(self, amount: int):
+        self.find_to_be_clickable(*AccountPageLocators.AMOUNT_INPUT).send_keys(str(amount))
 
     @allure.step('Click Withdrawl')
     def click_withdrawl(self):
