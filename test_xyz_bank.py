@@ -45,7 +45,9 @@ class TestBankOperations:
 
         transactions.go_to_transactions_list()
         transaction_lst = transactions.get_transaction_list()
-        assert fibonacci_num in transaction_lst, 'Transactions not found'
+        credit_value, debit_value = transaction_lst[0], transaction_lst[2]
+        assert credit_value == fibonacci_num, f'Expected value for Credit: {fibonacci_num}, got instead:{credit_value}'
+        assert debit_value == fibonacci_num, f'Expected value for Debit: {fibonacci_num}, got instead: {debit_value}'
 
         file_name = csv.generate_csv_report()
 
